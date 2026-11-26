@@ -1,42 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Database, Cloud, Cpu, MapPin } from "lucide-react";
-import { Cormorant_Garamond, IBM_Plex_Mono } from "next/font/google";
-
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-serif",
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-});
 
 const skillCategories = [
-  {
-    icon: Code,
-    title: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-  },
-  {
-    icon: Database,
-    title: "Backend",
-    skills: ["Node.js", "Python", "SQL", "Prisma"],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud / Data",
-    skills: ["AWS", "GCP", "PostgreSQL"],
-  },
-  {
-    icon: Cpu,
-    title: "Tools",
-    skills: ["Git", "Figma", "Postman", "Linux"],
-  },
+  { title: "Frontend", skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { title: "Backend", skills: ["Node.js", "Python", "SQL", "Prisma"] },
+  { title: "Cloud / Data", skills: ["AWS", "GCP", "PostgreSQL"] },
+  { title: "Tools", skills: ["Git", "Figma", "Postman", "Linux"] },
 ];
 
 const stats = [
@@ -47,169 +17,94 @@ const stats = [
 
 export default function About() {
   return (
-    <section
-      id="about"
-      className={`relative py-20 md:py-28 ${serif.variable} ${mono.variable}`}
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_15%_50%,rgba(34,197,94,0.04),transparent_35%)]" />
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-8">
-        {/* ── HEADER ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
-        >
-          <div>
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.36em] text-zinc-500">
-              02 / About
-            </p>
-            <h2 className="font-serif text-[clamp(2.4rem,5vw,4rem)] font-medium leading-[0.95] text-zinc-100">
-              Building software that
-              <br />
-              <span className="text-zinc-400">scales with intent.</span>
-            </h2>
-          </div>
-
-          {/* Stats row */}
-          <div className="flex gap-8 md:gap-10 md:pb-1">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
-                viewport={{ once: true }}
-                className="flex flex-col"
-              >
-                <span className="font-serif text-3xl font-medium text-emerald-300/90 md:text-4xl">
-                  {stat.value}
-                </span>
-                <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
-                  {stat.label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* ── MAIN CONTENT ── */}
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12">
-          {/* LEFT — bio */}
+    <>
+      <section id="about" className="scroll-mt-24 bg-navy-deep py-20 md:py-28">
+        <div className="mx-auto grid max-w-[1400px] gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:px-14">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col gap-8"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="space-y-5 font-mono text-[13px] leading-[1.85] text-zinc-400 md:text-[13.5px]">
+            <p className="eyebrow text-mist">About</p>
+            <h2 className="headline mt-6 text-[clamp(2.6rem,6vw,4.8rem)]">
+              Software that
+              <br />
+              scales <span className="hl">with intent.</span>
+            </h2>
+            <div className="eyebrow mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[0.72rem] text-white/80">
+              <span className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-brand" /> Maputo, MZ
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-brand" /> Available now
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className="space-y-5 text-lg leading-relaxed text-white/85 md:text-xl">
               <p>
-                Computer Science graduate and software engineer with hands-on
-                experience across full-stack development, systems architecture,
-                and production-ready digital products.
+                I&apos;m a Computer Science graduate and software engineer with
+                hands-on experience across full-stack development, systems
+                architecture and production-ready digital products.
               </p>
               <p>
                 My work includes reservation platforms, operations dashboards,
-                data pipelines, and health-sector systems — all built for
+                data pipelines and health-sector systems, all built for
                 real-world deployment and daily use.
               </p>
               <p>
-                I have a strong interest in software architecture, data systems,
-                and API design, with a consistent focus on building tools that
-                are robust, maintainable, and well-documented.
+                I have a strong interest in software architecture, data
+                systems and API design, with a consistent focus on tools that
+                are robust, maintainable and well-documented.
               </p>
             </div>
 
-            {/* Meta strip */}
-            <div className="grid grid-cols-2 gap-3 border-t border-emerald-400/10 pt-6 sm:grid-cols-3">
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[9px] uppercase tracking-[0.28em] text-zinc-600">
-                  Location
-                </span>
-                <span className="flex items-center gap-1.5 font-mono text-[11px] text-zinc-400">
-                  <MapPin size={11} className="text-emerald-400/60" />
-                  Maputo, MZ
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[9px] uppercase tracking-[0.28em] text-zinc-600">
-                  Availability
-                </span>
-                <span className="flex items-center gap-1.5 font-mono text-[11px] text-emerald-300">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/50" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  </span>
-                  Open now
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[9px] uppercase tracking-[0.28em] text-zinc-600">
-                  Focus
-                </span>
-                <span className="font-mono text-[11px] text-zinc-400">
-                  Full-stack · Data
-                </span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* RIGHT — skills */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col gap-3"
-          >
-            <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.32em] text-zinc-600">
-              Core capabilities
-            </p>
-
-            {skillCategories.map((category, index) => {
-              const Icon = category.icon;
-              return (
-                <motion.div
-                  key={category.title}
-                  initial={{ opacity: 0, x: 12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.45, delay: 0.05 * index }}
-                  viewport={{ once: true }}
-                  className="group flex items-center gap-4 border border-emerald-400/10 bg-emerald-500/[0.025] px-4 py-4 backdrop-blur-sm transition-all duration-300 hover:border-emerald-400/25 hover:bg-emerald-500/[0.05]"
-                >
-                  {/* icon */}
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-emerald-400/15 bg-black/25 text-emerald-300/80 transition-all duration-300 group-hover:border-emerald-400/30 group-hover:text-emerald-200">
-                    <Icon size={15} />
-                  </div>
-
-                  {/* title */}
-                  <span className="w-20 shrink-0 font-serif text-[1.05rem] text-zinc-300 transition-colors duration-300 group-hover:text-zinc-100">
-                    {category.title}
-                  </span>
-
-                  {/* divider */}
-                  <div className="h-4 w-px shrink-0 bg-emerald-400/15" />
-
-                  {/* skills inline */}
-                  <div className="flex min-w-0 flex-wrap gap-x-3 gap-y-1">
-                    {category.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500 transition-colors duration-300 group-hover:text-zinc-400"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
+            <dl className="mt-10 grid grid-cols-3 border-t border-white/15">
+              {stats.map((s) => (
+                <div key={s.label} className="border-b border-white/15 py-6 pr-4">
+                  <dt className="headline text-5xl text-brand md:text-6xl">{s.value}</dt>
+                  <dd className="eyebrow mt-2 text-[0.68rem] text-mist">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="skills" className="scroll-mt-24 py-20 md:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-14">
+          <p className="eyebrow text-mist">Capabilities</p>
+          <div className="mt-8 grid border-t border-white/15 sm:grid-cols-2 lg:grid-cols-4">
+            {skillCategories.map((cat, i) => (
+              <motion.div
+                key={cat.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: 0.07 * i }}
+                className="border-b border-white/15 py-8 sm:pr-6 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:pl-6 lg:first:pl-0"
+              >
+                <h3 className="headline text-3xl">{cat.title}</h3>
+                <ul className="mt-5 space-y-2.5">
+                  {cat.skills.map((s) => (
+                    <li key={s} className="flex items-center gap-3 text-lg text-white/85">
+                      <span className="h-2 w-2 bg-brand" />
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
