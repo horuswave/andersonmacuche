@@ -6,16 +6,12 @@ import { ArrowUpRight, Check, ChevronDown, Github } from "lucide-react";
 import { caseStudies } from "@/data/caseStudies";
 import type { CaseStudy } from "@/types/caseStudy";
 
-const cardColors = ["bg-sun", "bg-pink", "bg-mint", "bg-lilac", "bg-sky"];
-
-function Thumb({ study, color }: { study: CaseStudy; color: string }) {
+function Thumb({ study }: { study: CaseStudy }) {
   const [failed, setFailed] = useState(false);
   return (
-    <div
-      className={`sticker-sm relative aspect-[16/10] overflow-hidden rounded-2xl ${color}`}
-    >
+    <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-sky-400/15 bg-gradient-to-br from-blue-950 to-slate-900">
       {failed ? (
-        <div className="grid h-full place-items-center px-4 text-center font-display text-2xl font-semibold">
+        <div className="grid h-full place-items-center px-4 text-center text-xl font-semibold text-sky-200">
           {study.title}
         </div>
       ) : (
@@ -32,47 +28,46 @@ function Thumb({ study, color }: { study: CaseStudy; color: string }) {
   );
 }
 
-function Card({
-  id,
-  study,
-  index,
-}: {
-  id: string;
-  study: CaseStudy;
-  index: number;
-}) {
+function List({ items, icon }: { items: string[]; icon: string }) {
+  return (
+    <ul className="space-y-2">
+      {items.map((t) => (
+        <li key={t} className="flex gap-2 text-sm leading-relaxed text-slate-300">
+          <Check size={16} className={`mt-0.5 shrink-0 ${icon}`} />
+          {t}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Card({ id, study }: { id: string; study: CaseStudy }) {
   const [open, setOpen] = useState(false);
-  const color = cardColors[index % cardColors.length];
 
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, delay: 0.05 }}
-      className="sticker flex flex-col rounded-3xl bg-paper p-4 md:p-5"
+      transition={{ duration: 0.5 }}
+      className="card-dark flex flex-col rounded-2xl p-4 md:p-5"
     >
-      <Thumb study={study} color={color} />
+      <Thumb study={study} />
 
-      <div className="mt-4 flex flex-1 flex-col">
-        <h3 className="font-display text-2xl font-semibold leading-tight">
-          {study.title}
-        </h3>
-        <p className="mt-2 text-sm font-semibold leading-relaxed text-ink-soft md:text-base">
+      <div className="mt-5 flex flex-1 flex-col">
+        <h3 className="text-xl font-semibold text-white">{study.title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-slate-400 md:text-[15px]">
           {study.description}
         </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
           {study.technologies.slice(0, open ? undefined : 5).map((t) => (
-            <span
-              key={t}
-              className="rounded-full border-2 border-ink bg-cream px-3 py-0.5 text-xs font-extrabold"
-            >
+            <span key={t} className="rounded-md bg-sky-400/10 px-2.5 py-1 text-xs font-medium text-sky-200">
               {t}
             </span>
           ))}
           {!open && study.technologies.length > 5 && (
-            <span className="rounded-full border-2 border-dashed border-ink px-3 py-0.5 text-xs font-extrabold">
+            <span className="rounded-md border border-dashed border-sky-400/30 px-2.5 py-1 text-xs text-sky-300">
               +{study.technologies.length - 5}
             </span>
           )}
@@ -90,67 +85,23 @@ function Card({
             >
               <div className="space-y-5 pt-5">
                 <section>
-                  <h4 className="mb-1 font-display text-lg font-semibold">
-                    🎯 The challenge
-                  </h4>
-                  <p className="text-sm font-semibold leading-relaxed text-ink-soft">
-                    {study.challenge}
-                  </p>
+                  <h4 className="mb-1 text-sm font-semibold uppercase tracking-wider text-sky-400">Challenge</h4>
+                  <p className="text-sm leading-relaxed text-slate-300">{study.challenge}</p>
                 </section>
-
                 <section>
-                  <h4 className="mb-2 font-display text-lg font-semibold">
-                    🛠️ How I built it
-                  </h4>
-                  <ul className="space-y-2">
-                    {study.approach.map((a) => (
-                      <li
-                        key={a}
-                        className="flex gap-2 text-sm font-semibold leading-relaxed text-ink-soft"
-                      >
-                        <Check
-                          size={16}
-                          strokeWidth={3}
-                          className="mt-1 shrink-0 text-coral"
-                        />
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
+                  <h4 className="mb-2 text-sm font-semibold uppercase tracking-wider text-sky-400">Approach</h4>
+                  <List items={study.approach} icon="text-cyan-400" />
                 </section>
-
                 <section>
-                  <h4 className="mb-2 font-display text-lg font-semibold">
-                    🎉 The results
-                  </h4>
-                  <ul className="space-y-2">
-                    {study.results.map((r) => (
-                      <li
-                        key={r}
-                        className="flex gap-2 text-sm font-semibold leading-relaxed text-ink-soft"
-                      >
-                        <Check
-                          size={16}
-                          strokeWidth={3}
-                          className="mt-1 shrink-0 text-mint"
-                        />
-                        {r}
-                      </li>
-                    ))}
-                  </ul>
+                  <h4 className="mb-2 text-sm font-semibold uppercase tracking-wider text-sky-400">Results</h4>
+                  <List items={study.results} icon="text-emerald-400" />
                 </section>
-
                 {study.dashboardFeatures && (
                   <section>
-                    <h4 className="mb-2 font-display text-lg font-semibold">
-                      ✨ Dashboard features
-                    </h4>
+                    <h4 className="mb-2 text-sm font-semibold uppercase tracking-wider text-sky-400">Dashboard features</h4>
                     <div className="flex flex-wrap gap-2">
                       {study.dashboardFeatures.map((f) => (
-                        <span
-                          key={f}
-                          className={`sticker-sm rounded-full px-3 py-1 text-xs font-extrabold ${color}`}
-                        >
+                        <span key={f} className="rounded-full border border-cyan-400/25 px-3 py-1 text-xs text-cyan-200">
                           {f}
                         </span>
                       ))}
@@ -162,30 +113,25 @@ function Card({
           )}
         </AnimatePresence>
 
-        <div className="mt-5 flex flex-wrap items-center gap-3 pt-1">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls={`${id}-details`}
-            className="sticker-sm pop inline-flex items-center gap-1.5 rounded-full bg-sun px-4 py-2 text-sm font-extrabold"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300"
           >
-            {open ? "Show less" : "The full story"}
-            <ChevronDown
-              size={16}
-              strokeWidth={3}
-              className={`transition-transform ${open ? "rotate-180" : ""}`}
-            />
+            {open ? "Show less" : "Case study"}
+            <ChevronDown size={16} className={`transition-transform ${open ? "rotate-180" : ""}`} />
           </button>
-
           {study.live && (
             <a
               href={study.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="sticker-sm pop inline-flex items-center gap-1.5 rounded-full bg-coral px-4 py-2 text-sm font-extrabold text-white"
+              className="btn-glow inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white"
             >
-              Visit site <ArrowUpRight size={16} strokeWidth={3} />
+              Visit site <ArrowUpRight size={16} />
             </a>
           )}
           {study.github && (
@@ -193,7 +139,7 @@ function Card({
               href={study.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="sticker-sm pop inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-extrabold"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 hover:border-cyan-400"
             >
               <Github size={16} /> Code
             </a>
@@ -205,35 +151,29 @@ function Card({
 }
 
 export default function CaseStudies() {
-  const entries = Object.entries(caseStudies);
-
   return (
-    <section id="case-studies" className="scroll-mt-28 py-16 md:py-24">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5 }}
-        className="mb-12 text-center"
-      >
-        <span className="sticker-sm inline-block -rotate-2 rounded-full bg-pink px-4 py-1 text-sm font-extrabold">
-          Projects
-        </span>
-        <h2 className="mt-5 font-display text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-tight">
-          Things I&apos;ve{" "}
-          <span className="underline decoration-mint decoration-[6px] underline-offset-[6px]">
-            made &amp; shipped
-          </span>
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl font-semibold text-ink-soft">
-          Real products for real people. Open any card for the full story.
-        </p>
-      </motion.div>
+    <section id="case-studies" className="scroll-mt-24 py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-14 max-w-3xl text-center"
+        >
+          <h2 className="text-gradient text-[clamp(2rem,5vw,3.25rem)] font-bold leading-tight tracking-tight">
+            My Work
+          </h2>
+          <p className="mt-4 text-lg text-sky-200/70">
+            Real products for real people. Open any card for the full case study.
+          </p>
+        </motion.div>
 
-      <div className="grid items-start gap-8 md:grid-cols-2">
-        {entries.map(([id, study], i) => (
-          <Card key={id} id={id} study={study} index={i} />
-        ))}
+        <div className="grid items-start gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {Object.entries(caseStudies).map(([id, study]) => (
+            <Card key={id} id={id} study={study} />
+          ))}
+        </div>
       </div>
     </section>
   );

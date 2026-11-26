@@ -11,78 +11,79 @@ interface NavbarProps {
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#case-studies" },
-  { label: "Say hi", href: "#contact" },
+  { label: "My Work", href: "#case-studies" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar({ menuOpen, setMenuOpen }: NavbarProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <div className="sticker mx-auto max-w-5xl rounded-full bg-paper px-3 py-2">
-        <div className="flex items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-sky-400/15 bg-[#0a0a0a]/90 backdrop-blur-md">
+      <div className="mx-auto grid h-[72px] max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6 lg:px-8">
+        <a
+          href="#home"
+          className="justify-self-start text-sm font-light uppercase tracking-[0.35em] text-white sm:text-base"
+        >
+          Anderson<span className="font-semibold text-sky-400">.</span>
+        </a>
+
+        <nav className="hidden items-center gap-9 md:flex" aria-label="Main">
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="text-[15px] font-medium text-slate-100 transition-colors hover:text-sky-400"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3 justify-self-end">
           <a
-            href="#home"
-            className="flex items-center gap-2 rounded-full px-2 py-1 font-display text-lg font-semibold"
+            href="/ANDERSON-MACUCHE-CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300 sm:block"
           >
-            <span className="sticker-sm grid h-9 w-9 place-items-center rounded-full bg-sun text-base">
-              A
-            </span>
-            <span>Anderson</span>
+            CV
           </a>
-
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
-            {navItems.map((item, i) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-ink hover:text-cream ${
-                  i === navItems.length - 1 ? "bg-coral text-white" : ""
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(!menuOpen)}
-            className="sticker-sm grid h-10 w-10 place-items-center rounded-full bg-mint md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-lg border border-slate-700 text-slate-100 md:hidden"
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
-
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.nav
-              aria-label="Mobile"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="overflow-hidden md:hidden"
-            >
-              <div className="flex flex-col gap-2 px-2 pb-3 pt-3">
-                {navItems.map((item, i) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`sticker-sm rounded-2xl px-4 py-3 font-display text-lg font-medium ${
-                      ["bg-sun", "bg-mint", "bg-lilac", "bg-coral text-white"][i]
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </motion.nav>
-          )}
-        </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            aria-label="Mobile"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden border-t border-sky-400/10 md:hidden"
+          >
+            <div className="flex flex-col px-4 py-3">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="border-b border-slate-800 py-3.5 text-base font-medium text-slate-100 last:border-0 hover:text-sky-400"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

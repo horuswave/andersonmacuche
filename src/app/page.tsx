@@ -12,13 +12,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-cream bg-[radial-gradient(var(--color-ink)_1px,transparent_1px)] bg-[length:28px_28px] bg-fixed text-ink">
-      {/* soften the dot grid so it stays a whisper */}
-      <div className="pointer-events-none fixed inset-0 bg-cream/90" />
-
+    <main className="relative min-h-screen overflow-x-hidden bg-[#050505] text-slate-200">
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
-      <div className="relative mx-auto max-w-6xl px-4 pt-20 sm:px-6 md:pt-24">
+      <div className="pt-[72px]">
         <Hero />
         <About />
         <CaseStudies />

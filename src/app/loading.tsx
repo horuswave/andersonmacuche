@@ -1,20 +1,18 @@
 // app/loading.tsx
 export default function Loading() {
   return (
-    <main className="fixed inset-0 z-[9999] grid place-items-center bg-cream">
+    <main className="fixed inset-0 z-[9999] grid place-items-center bg-[#050505]">
       <div className="text-center">
         <div className="mb-4 flex justify-center gap-3" aria-hidden>
-          {["bg-coral", "bg-sun", "bg-mint"].map((c, i) => (
+          {[0, 1, 2].map((i) => (
             <span
-              key={c}
+              key={i}
               style={{ animationDelay: `${i * 0.15}s` }}
-              className={`animate-bounce-dot h-5 w-5 rounded-full border-[2.5px] border-ink ${c}`}
+              className="animate-bounce-dot h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.7)]"
             />
           ))}
         </div>
-        <p className="font-display text-xl font-medium text-ink">
-          Warming things up…
-        </p>
+        <p className="text-sm tracking-[0.3em] text-slate-400">LOADING</p>
       </div>
     </main>
   );

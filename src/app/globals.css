@@ -2,118 +2,110 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --font-display: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
-  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  --color-cream: #fff6e8;
-  --color-paper: #fffdf8;
-  --color-ink: #2b1b17;
-  --color-ink-soft: #6b5750;
-  --color-coral: #ff6b4a;
-  --color-sun: #ffc93c;
-  --color-mint: #6fd6b0;
-  --color-lilac: #b9a2ff;
-  --color-pink: #ff9ec7;
-  --color-sky: #8ad4ff;
-
-  --color-background: var(--color-cream);
-  --color-foreground: var(--color-ink);
-  --color-primary: var(--color-coral);
-  --color-primary-foreground: #fff;
-  --color-secondary: var(--color-sun);
-  --color-secondary-foreground: var(--color-ink);
-  --color-muted: #f6e8d2;
-  --color-muted-foreground: var(--color-ink-soft);
-  --color-accent: var(--color-mint);
-  --color-accent-foreground: var(--color-ink);
-  --color-card: var(--color-paper);
-  --color-card-foreground: var(--color-ink);
-  --color-popover: var(--color-paper);
-  --color-popover-foreground: var(--color-ink);
-  --color-destructive: #e5484d;
-  --color-border: var(--color-ink);
-  --color-input: var(--color-ink);
-  --color-ring: var(--color-coral);
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --color-background: #050505;
+  --color-foreground: #e5e7eb;
+  --color-primary: #38bdf8;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #0b0f14;
+  --color-secondary-foreground: #e5e7eb;
+  --color-muted: #0b0f14;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #0e1a24;
+  --color-accent-foreground: #e5e7eb;
+  --color-card: #0b0f14;
+  --color-card-foreground: #e5e7eb;
+  --color-popover: #0b0f14;
+  --color-popover-foreground: #e5e7eb;
+  --color-destructive: #ef4444;
+  --color-border: rgba(56, 189, 248, 0.18);
+  --color-input: rgba(56, 189, 248, 0.18);
+  --color-ring: #38bdf8;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
   body {
-    background: var(--color-cream);
-    color: var(--color-ink);
+    background: #050505;
+    color: #e5e7eb;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
-  }
   ::selection {
-    background: var(--color-sun);
-    color: var(--color-ink);
+    background: rgba(56, 189, 248, 0.35);
+    color: #fff;
   }
   :focus-visible {
-    outline: 3px solid var(--color-coral);
+    outline: 2px solid #38bdf8;
     outline-offset: 3px;
     border-radius: 0.5rem;
   }
 }
 
-/* chunky "sticker" look: thick ink outline + hard offset shadow */
-@utility sticker {
-  border: 2.5px solid var(--color-ink);
-  box-shadow: 5px 5px 0 0 var(--color-ink);
+/* blue -> sky gradient text, as in the Horuswave hero headline */
+@utility text-gradient {
+  background-image: linear-gradient(90deg, #5cc4fa 0%, #60a5fa 55%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-@utility sticker-sm {
-  border: 2px solid var(--color-ink);
-  box-shadow: 3px 3px 0 0 var(--color-ink);
-}
-@utility pop {
+
+/* gradient call-to-action button with cyan border + glow */
+@utility btn-glow {
+  background-image: linear-gradient(90deg, #1e40af 0%, #0891b2 100%);
+  border: 1.5px solid #22d3ee;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.35);
   transition:
-    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.18s ease;
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
   &:hover {
-    transform: translate(-2px, -2px) rotate(-0.6deg);
-    box-shadow: 7px 7px 0 0 var(--color-ink);
-  }
-  &:active {
-    transform: translate(3px, 3px);
-    box-shadow: 1px 1px 0 0 var(--color-ink);
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
+    transform: translateY(-2px);
   }
 }
 
-@keyframes floaty {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(6deg);
-  }
-}
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(6deg);
+/* dark glass card with faint cyan edge */
+@utility card-dark {
+  background: linear-gradient(180deg, #0c1117 0%, #080b10 100%);
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+  &:hover {
+    border-color: rgba(34, 211, 238, 0.5);
+    box-shadow: 0 0 28px rgba(34, 211, 238, 0.12);
   }
 }
-@keyframes marquee {
-  from {
-    transform: translateX(0);
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: var(--o, 0.35);
   }
-  to {
-    transform: translateX(-50%);
+  50% {
+    transform: translateY(-18px);
+    opacity: calc(var(--o, 0.35) * 0.4);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
   }
 }
 @keyframes bounce-dot {
@@ -126,15 +118,11 @@
     transform: translateY(-12px);
   }
 }
-
-.animate-floaty {
-  animation: floaty 6s ease-in-out infinite;
+.animate-drift {
+  animation: drift 7s ease-in-out infinite;
 }
-.animate-wiggle {
-  animation: wiggle 1.6s ease-in-out infinite;
-}
-.animate-marquee {
-  animation: marquee 28s linear infinite;
+.animate-pulse-ring {
+  animation: pulse-ring 2.2s ease-out infinite;
 }
 .animate-bounce-dot {
   animation: bounce-dot 1s ease-in-out infinite;
@@ -144,9 +132,8 @@
   html {
     scroll-behavior: auto;
   }
-  .animate-floaty,
-  .animate-wiggle,
-  .animate-marquee,
+  .animate-drift,
+  .animate-pulse-ring,
   .animate-bounce-dot {
     animation: none;
   }
